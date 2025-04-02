@@ -35,7 +35,7 @@ def main(args):
         
         # 
         input_ids, image_tensors, image_sizes = model.repair_input(qs, img_files)
-        print("Image size: ", image_sizes.shape)
+        print("Image size: ", image_tensors.shape)
         
         # repair dir
         clean_dir = os.path.join(sample_dir, "clean_img")
