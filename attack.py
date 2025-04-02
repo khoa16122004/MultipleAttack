@@ -30,8 +30,7 @@ def ES_1_lambda(args, benchmark, index_attack, model, lambda_,
             fitness, adv_img_files, output, adv_img_tensor = benchmark(args, image_tensors, index_attack, input_ids, image_sizes, 
                                                                        gt_answer, pertubations, model)    
             
-            print(output)
-            input("wait")
+
             current_fitnesses.append(fitness)
             current_adv_files.append(adv_img_files)
             current_output.append(output)

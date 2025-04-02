@@ -3,7 +3,8 @@ from nltk.translate.bleu_score import sentence_bleu
 from rouge_score import rouge_scorer
 import torch
 import torch.nn.functional as F
-
+import warnings
+warnings.filterwarnings("ignore", category=UserWarning)
 
 sim_model = SentenceTransformer('all-MiniLM-L6-v2')
 @torch.no_grad()
