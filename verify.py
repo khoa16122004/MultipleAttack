@@ -16,14 +16,13 @@ input_ids, image_tensors_0, image_sizes = model.repair_input(qs, img_files)
 tensor_output = model.inference(input_ids, image_tensors_0, image_sizes)
 print("PIL inference: ", tensor_output)
 
-print(image_tensors_0[0])
 
 
 image_tensor_load = torch.load(r"/data/elo/khoatn/MultipleAttack/test_ES_lambda=50_epsilon=0.01_maxiter=1_pretrained=llava-onevision-qwen2-7b-ov/30/0/all_adv.pt")
 tensor_output = model.inference(input_ids, image_tensor_load, image_sizes)
-print(tensor_output[0])
 print("Tensor inference: ", tensor_output)
 
+print("diff: ", (image_tensors_0[0] - image_tensor_load[0]).abs().sum())
 
 
 # decoded_image_pil = model.decode_image_tensors(image_tensors_0) # ảnh int
