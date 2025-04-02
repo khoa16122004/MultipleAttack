@@ -12,7 +12,6 @@ qs = "Which images feature elements typically associated with celebration or fes
 img_files = [Image.open(os.path.join(clean_image_dir, path)).convert("RGB") for path in sorted(os.listdir(clean_image_dir))]
 adv_img_file = Image.open(r"/data/elo/khoatn/MultipleAttack/test_ES_lambda=50_epsilon=0.01_maxiter=1_pretrained=llava-onevision-qwen2-7b-ov/30/0/adv.png")
 img_files[0] = adv_img_file
-img_files[0].save("adv.png")
 input_ids, image_tensors_0, image_sizes = model.repair_input(qs, img_files)
 tensor_output = model.inference(input_ids, image_tensors_0, image_sizes)
 print("PIL inference: ", tensor_output)
