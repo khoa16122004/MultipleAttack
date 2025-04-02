@@ -18,9 +18,10 @@ def main(args):
     for i, item in enumerate(mantis_QA_loader(image_placeholder=image_token)):
 
         
-        if i == args.index_sample:
+        if i > args.index_sample:
             break
-        else:
+        
+        if i != args.index_sample:
             continue
         
 
