@@ -20,6 +20,7 @@ decoded_image_pil = model.decode_image_tensors(image_tensors_0) # ảnh int
 
 input_ids, image_tensors_1, image_sizes = model.repair_input("Descibe image<image><image>", decoded_image_pil)
 tensor_output = model.inference(input_ids, image_tensors_1, image_sizes)
+print(tensor_output)
 print((image_tensors_0 - image_tensors_1).mean().item())
 for i in range(len(decoded_image_pil)):
     decoded_image_pil[i].save(os.path.join(output_dir, f"decoded_image{i}.png"))
