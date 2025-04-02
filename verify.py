@@ -10,13 +10,13 @@ model = LLava("llava-onevision-qwen2-7b-ov", "llava_qwen")
 
 # kiểm định xem ảnh float inference có khác ảnh int ko
 img_files = [Image.open(os.path.join(clean_image_dir, path)).convert("RGB").resize((224, 224)) for path in sorted(os.listdir(clean_image_dir))]
-input_ids, image_tensors, image_sizes = model.repair_input("Descibe image<image><image>", img_files)
-image_tensors_0 += torch.randn_like(image_tensors).cuda() * 0.05 # ảnh float
-tensor_output = model.inference(input_ids, image_tensors, image_sizes)
+input_ids, image_tensors_0, image_sizes = model.repair_input("Descibe image<image><image>", img_files)
+image_tensors_0 += torch.randn_like(image_tensors_0).cuda() * 0.05 # ảnh float
+tensor_output = model.inference(input_ids, image_tensors_0, image_sizes)
 print(tensor_output)
 
 
-decoded_image_pil = model.decode_image_tensors(image_tensors) # ảnh int
+decoded_image_pil = model.decode_image_tensors(image_tensors_0) # ảnh int
 
 input_ids, image_tensors_1, image_sizes = model.repair_input("Descibe image<image><image>", decoded_image_pil)
 tensor_output = model.inference(input_ids, image_tensors_1, image_sizes)
