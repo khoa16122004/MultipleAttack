@@ -60,8 +60,10 @@ def main(args):
                                                                                                             epsilon=args.epsilon)
             
             # log
-            attacked_img_files = best_img_files_adv[index_attack]
-            attacked_img_files.save(os.path.join(index_dir, "adv.png"))
+            # attacked_img_files = best_img_files_adv[index_attack]
+            for j, img_adv_files in enumerate(best_img_files_adv):
+                img_adv_files.save(os.path.join(index_dir, f"{j}.png"))
+            # attacked_img_files.save(os.path.join(index_dir, "adv.png"))
             torch.save(best_adv_img_tensors, os.path.join(index_dir, "all_adv.pt"))
             
             with open(os.path.join(index_dir, "history.txt"), "w") as f:          
