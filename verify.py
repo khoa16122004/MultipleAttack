@@ -11,16 +11,16 @@ model = LLava("llava-onevision-qwen2-7b-ov", "llava_qwen")
 # kiểm định xem ảnh float inference có khác ảnh int ko
 img_files = [Image.open(os.path.join(clean_image_dir, path)).convert("RGB").resize((224, 224)) for path in sorted(os.listdir(clean_image_dir))]
 input_ids, image_tensors, image_sizes = model.repair_input("Descibe image<image><image>", img_files)
-image_tensors += torch.randn_like(image_tensors).cuda() * 0.05 # ảnh float
-tensor_output_1 = model.inference(input_ids, image_tensors, image_sizes)
-print(tensor_output_1)
+image_tensors_0 += torch.randn_like(image_tensors).cuda() * 0.05 # ảnh float
+tensor_output = model.inference(input_ids, image_tensors, image_sizes)
+print(tensor_output)
 
 
 decoded_image_pil = model.decode_image_tensors(image_tensors) # ảnh int
 
-input_ids, image_tensors, image_sizes = model.repair_input("Descibe image<image><image>", decoded_image_pil)
-tensor_output = model.inference(input_ids, image_tensors, image_sizes)
-print((tensor_output - tensor_output_1).mean().item())
+input_ids, image_tensors_1, image_sizes = model.repair_input("Descibe image<image><image>", decoded_image_pil)
+tensor_output = model.inference(input_ids, image_tensors_1, image_sizes)
+print((image_tensors_0 - image_tensors_1).mean().item())
 for i in range(len(decoded_image_pil)):
     decoded_image_pil[i].save(os.path.join(output_dir, f"decoded_image{i}.png"))
     # img_files[i].save(os.path.join(output_dir, f"original_image{i}.png"))
