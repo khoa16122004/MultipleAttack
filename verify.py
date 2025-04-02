@@ -6,7 +6,7 @@ output_dir = "verify"
 os.makedirs(output_dir, exist_ok=True)
 model = LLava("llava-onevision-qwen2-7b-ov", "llava_qwen")
 
-img_files = [Image.open(os.path.listdir(clean_image_dir, path)).convert("RGB") for path in sorted(os.listdir(clean_image_dir))]
+img_files = [Image.open(os.path.join(clean_image_dir, path)).convert("RGB") for path in sorted(os.listdir(clean_image_dir))]
 input_ids, image_tensors, image_sizes = model.repair_input(None, img_files)
 
 decoded_image = model.decode_image_tensors(image_tensors)
