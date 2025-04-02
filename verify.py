@@ -22,6 +22,7 @@ print("PIL inference: ", tensor_output)
 
 
 image_tensor_load = torch.load(r"/data/elo/khoatn/MultipleAttack/test_ES_lambda=50_epsilon=0.01_maxiter=1_pretrained=llava-onevision-qwen2-7b-ov/30/0/all_adv.pt")
+print(image_tensor_load.shape)
 tensor_output = model.inference(input_ids, image_tensor_load, image_sizes)
 print("Tensor inference: ", tensor_output)
 
