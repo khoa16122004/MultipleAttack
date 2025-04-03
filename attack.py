@@ -72,7 +72,7 @@ def ES_1_all_lambda(args, benchmark, model, lambda_,
     best_pertubations = torch.randn_like(image_tensors).cuda()
     best_pertubations = torch.clamp(best_pertubations, -epsilon, epsilon)
 
-    best_fitness, adv_img_files, output, best_adv_img_tensors = benchmark(args, image_tensors, index_attack, input_ids, image_sizes, 
+    best_fitness, adv_img_files, output, best_adv_img_tensors = benchmark(args, image_tensors, input_ids, image_sizes, 
                                                                           gt_answer, best_pertubations, model)
     best_img_files_adv = adv_img_files
     history = [best_fitness]
