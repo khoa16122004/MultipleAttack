@@ -25,15 +25,15 @@ def FreeText_benchmark(args, image_tensors, index_attack, input_ids, image_sizes
     emb1 = sim_model.encode(output, convert_to_tensor=True)
     emb2 = sim_model.encode(target_answer, convert_to_tensor=True)
     similarity = F.cosine_similarity(emb1.unsqueeze(0), emb2.unsqueeze(0)).item()
-    print("Embedding similarity: ", similarity)
+    # print("Embedding similarity: ", similarity)
     
     # BLEU score
     bleu = sentence_bleu([target_answer.split()], output.split())
-    print("Bleu: ", bleu)
+    # print("Bleu: ", bleu)
     
     # number of words
     num_words = 0.01 * len(output.split())
-    print("Num word: ", num_words)
+    # print("Num word: ", num_words)
     
     # weighted sum
     # final_score = s1 + s2 + s3 + s4 + s5
