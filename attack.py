@@ -38,6 +38,7 @@ def ES_1_lambda(args, benchmark, index_attack, model, lambda_,
             current_adv_img_tensors.append(adv_img_tensor)
         
         num_evaluation += lambda_
+        print("Current fitness: ", current_fitnesses)
             
         current_fitnesses = torch.tensor(current_fitnesses)
         best_id_current_fitness = torch.argmax(current_fitnesses) 
