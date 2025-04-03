@@ -4,7 +4,7 @@ from tqdm import tqdm
 def ES_1_lambda(args, benchmark, index_attack, model, lambda_,
                 image_tensors, image_sizes, input_ids, gt_answer, 
                 epsilon=0.05, sigma=1.5, c_increase=1.1, c_decrease=0.9,
-                verbose=True):
+                verbose=False):
     
     # image_tensors: batch_size x 3 x 224 x 224
     best_pertubations = torch.randn_like(image_tensors[index_attack]).cuda()
@@ -25,21 +25,21 @@ def ES_1_lambda(args, benchmark, index_attack, model, lambda_,
         # inference
         current_fitnesses = []
         current_adv_files = []
-        current_output = []
+        current_outputs = []
         current_adv_img_tensors = []
         for pertubations in pertubations_list:
-            fitness, adv_img_files, output, adv_img_tensor = benchmark(args, image_tensors, index_attack, input_ids, image_sizes, 
+            fitness, adv_img_files, current_output, adv_img_tensor = benchmark(args, image_tensors, index_attack, input_ids, image_sizes, 
                                                                        gt_answer, pertubations, model)    
             
 
             current_fitnesses.append(fitness)
             current_adv_files.append(adv_img_files)
-            current_output.append(output)
+            current_outputs.append(current_output)
             current_adv_img_tensors.append(adv_img_tensor)
         
         num_evaluation += lambda_
         print("Current fitness: ", current_fitnesses)
-        print("Current output: ", current_output)
+        # print("Current output: ", current_outputs)
             
         current_fitnesses = torch.tensor(current_fitnesses)
         best_id_current_fitness = torch.argmax(current_fitnesses) 
