@@ -62,8 +62,8 @@ def FreeText_all_benchmark(args, image_tensors, input_ids, image_sizes,
     similarity_1 = F.cosine_similarity(emb1.unsqueeze(0), emb2.unsqueeze(0)).item() # sim with gt answer
     similarity_2 = F.cosine_similarity(emb1.unsqueeze(0), emb3.unsqueeze(0)).item() # sim with target
     
-    print("sim gt and output: ", similarity_1)
-    print("Embedding tg and output: ", similarity_2)
+    # print("sim gt and output: ", similarity_1)
+    # print("Embedding tg and output: ", similarity_2)
     
     # # BLEU score
     # bleu = sentence_bleu([target_answer.split()], output.split())
@@ -71,7 +71,7 @@ def FreeText_all_benchmark(args, image_tensors, input_ids, image_sizes,
     
     # number of words
     num_words = 0.01 * len(output.split())
-    print("Num word: ", num_words)
+    # print("Num word: ", num_words)
     
     # weighted sum
     # final_score = s1 + s2 + s3 + s4 + s5
