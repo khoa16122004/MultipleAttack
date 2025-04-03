@@ -26,13 +26,12 @@ class LLava:
         overwrite_config = {}
         overwrite_config["image_aspect_ratio"] = "pad"
         self.llava_model_args["overwrite_config"] = overwrite_config
-        
-        print(self.llava_model_args)
+        )
         
         self.tokenizer, self.model, self.image_processor, _ = load_pretrained_model(self.pretrained, None, model_name, 
                                                                           device_map=self.device_map, **self.llava_model_args)
         self.model.eval()
-        
+        print("Proccess: ", self.image_processor)
     
     def decode_image_tensors(self, image_tensors, image_mean=(0.5, 0.5, 0.5), image_std=(0.5, 0.5, 0.5)):
         unnormalize = transforms.Normalize(
