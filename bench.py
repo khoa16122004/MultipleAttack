@@ -32,9 +32,8 @@ def FreeText_benchmark(args, image_tensors, index_attack, input_ids, image_sizes
     print("Bleu: ", bleu)
     
     # number of words
-    num_words = 0.1 * len(output.split())
+    num_words = 0.01 * len(output.split())
     print("Num word: ", num_words)
-    
     
     # weighted sum
     # final_score = s1 + s2 + s3 + s4 + s5
