@@ -39,6 +39,7 @@ def ES_1_lambda(args, benchmark, index_attack, model, lambda_,
         
         num_evaluation += lambda_
         print("Current fitness: ", current_fitnesses)
+        print("Current output: ", current_output)
             
         current_fitnesses = torch.tensor(current_fitnesses)
         best_id_current_fitness = torch.argmax(current_fitnesses) 
