@@ -32,7 +32,7 @@ def FreeText_benchmark(args, image_tensors, index_attack, input_ids, image_sizes
     
     # number of words
     num_words = len(output.split())
-    s3 = 0.1 * (10 - num_words)
+    s3 = 0.1 * (40 - num_words)
     
     
     # weighted sum
