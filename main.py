@@ -85,7 +85,7 @@ def main(args):
                     f.write(f"Fitness:  {history[-1]}",)
                     f.write(f"Num evaluation: {num_evaluation}\n\n")
         if args.multiple == True:
-            image_tensors = torch.stack([transforms.ToTensor()(img_file) for img_file in img_files]) # [0, 1]
+            image_tensors = torch.stack([transforms.ToTensor()(img_file) for img_file in img_files]).cuda() # [0, 1]
             num_evaluation, history, best_img_files_adv, success, output, best_adv_img_tensors =ES_1_all_lambda(args, FreeText_all_benchmark, model, args.lambda_,
                                                                                                                 image_tensors, image_sizes, input_ids, original_output, 
                                                                                                                 epsilon=args.epsilon)
