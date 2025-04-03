@@ -22,6 +22,7 @@ def ES_1_lambda(args, benchmark, index_attack, model, lambda_,
         pertubations_list = alpha + best_pertubations * sigma
         pertubations_list = torch.clamp(pertubations_list, -epsilon, epsilon)
         
+        # inference
         current_fitnesses = []
         current_adv_files = []
         current_output = []
