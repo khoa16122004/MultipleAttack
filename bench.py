@@ -57,8 +57,11 @@ def FreeText_all_benchmark(args, image_tensors, input_ids, image_sizes,
     
     # cosine similarity
     emb1 = sim_model.encode(output, convert_to_tensor=True)
-    emb2 = sim_model.encode(target_answer, convert_to_tensor=True)
-    similarity = F.cosine_similarity(emb1.unsqueeze(0), emb2.unsqueeze(0)).item()
+    emb2 = sim_model.encode(gt_answer, convert_to_tensor=True)
+    emb3 = sim_model.encode(target_answer, convert_to_tensor=True)
+    similarity_1 = F.cosine_similarity(emb1.unsqueeze(0), emb2.unsqueeze(0)).item()
+    similarity_2 = F.cosine_similarity(emb1.unsqueeze(0), emb3.unsqueeze(0)).item()
+    
     # print("Embedding similarity: ", similarity)
     
     # # BLEU score
@@ -72,5 +75,5 @@ def FreeText_all_benchmark(args, image_tensors, input_ids, image_sizes,
     # weighted sum
     # final_score = s1 + s2 + s3 + s4 + s5
     # final_score = (similarity + bleu + num_words) / 3
-    final_score = (similarity - num_words) / 2
+    final_score = (similarity_2 - similarity_1 - num_words) / 2
     return final_score, adv_pil_images, output, adv_img_tensors
