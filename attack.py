@@ -42,9 +42,9 @@ def ES_1_lambda(args, benchmark, index_attack, model, lambda_,
         # print("Current output: ", current_outputs)
             
         current_fitnesses = torch.tensor(current_fitnesses)
-        best_id_current_fitness = torch.argmax(current_fitnesses) 
+        best_id_current_fitness = torch.argmin(current_fitnesses) 
         
-        if current_fitnesses[best_id_current_fitness] > best_fitness:
+        if current_fitnesses[best_id_current_fitness] <  best_fitness:
             best_fitness = current_fitnesses[best_id_current_fitness]
             best_pertubations = pertubations_list[best_id_current_fitness]
             best_img_files_adv = current_adv_files[best_id_current_fitness]
