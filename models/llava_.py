@@ -12,6 +12,8 @@ class LLava:
         
         # llava-next-interleave-7b
         # llava-onevision-qwen2-7b-ov
+        # 384 x 384
+        
         self.pretrained = f"lmms-lab/{pretrained}"
         self.model_name = model_name
         self.device = "cuda"
