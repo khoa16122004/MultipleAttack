@@ -71,7 +71,8 @@ def ES_1_all_lambda(args, benchmark, model, lambda_,
     # image_tensors: batch_size x 3 x 224 x 224
     best_pertubations = torch.randn_like(image_tensors).cuda()
     best_pertubations = torch.clamp(best_pertubations, -epsilon, epsilon)
-
+    
+    
     best_fitness, adv_img_files, output, best_adv_img_tensors = benchmark(args, image_tensors, input_ids, image_sizes, 
                                                                           gt_answer, best_pertubations, model)
     best_img_files_adv = adv_img_files
