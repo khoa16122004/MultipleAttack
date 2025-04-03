@@ -46,7 +46,7 @@ class LLava:
     def repair_input(self, qs, img_files):
         # repair for question input ids
         input_ids = None
-        if qs:
+        if qs is not None:
             conv = copy.deepcopy(conv_templates["qwen_1_5"])
             conv.append_message(conv.roles[0], qs)
             conv.append_message(conv.roles[1], None)
@@ -56,7 +56,7 @@ class LLava:
         # repair for image tensor
         image_tensors = None
         image_sizes = None
-        if img_files:
+        if img_files is not None:
             image_tensors = process_images(img_files, self.image_processor, self.model.config)
             image_tensors = torch.stack([_image.to(dtype=torch.float16, device=self.device) for _image in image_tensors])
             image_sizes = [image.size for image in img_files]
