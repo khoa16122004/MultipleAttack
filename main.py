@@ -1,7 +1,7 @@
 from utils import seed_everything, init_model
 from dataloader import mantis_QA_loader
 from attack import ES_1_each_lambda, ES_1_all_lambda
-from bench import FreeText_benchmark
+from bench import FreeText_benchmark, FreeText_all_benchmark
 import argparse
 import os
 import torch
@@ -57,9 +57,9 @@ def main(args):
                 os.makedirs(index_dir, exist_ok=True)
                 
                 
-                num_evaluation, history, best_img_files_adv, success, output, best_adv_img_tensors =ES_1_lambda(args, FreeText_benchmark, index_attack, model, args.lambda_,
-                                                                                                                image_tensors, image_sizes, input_ids, original_output, 
-                                                                                                                epsilon=args.epsilon)
+                num_evaluation, history, best_img_files_adv, success, output, best_adv_img_tensors =ES_1_all_lambda(args, FreeText_all_benchmark, model, args.lambda_,
+                                                                                                                    image_tensors, image_sizes, input_ids, original_output, 
+                                                                                                                    epsilon=args.epsilon)
                 
                 # log
                 # attacked_img_files = best_img_files_adv[index_attack]
@@ -80,7 +80,7 @@ def main(args):
                     f.write(f"Fitness:  {history[-1]}",)
                     f.write(f"Num evaluation: {num_evaluation}\n\n")
         if args.multiple == True:
-            num_evaluation, history, best_img_files_adv, success, output, best_adv_img_tensors =ES_1_all_lambda(args, FreeText_benchmark, model, args.lambda_,
+            num_evaluation, history, best_img_files_adv, success, output, best_adv_img_tensors =ES_1_each_lambda(args, FreeText_benchmark, index_attack, model, args.lambda_,
                                                                                                                 image_tensors, image_sizes, input_ids, original_output, 
                                                                                                                 epsilon=args.epsilon)
             # log
