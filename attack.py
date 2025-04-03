@@ -48,7 +48,7 @@ def ES_1_lambda(args, benchmark, index_attack, model, lambda_,
             best_fitness = current_fitnesses[best_id_current_fitness]
             best_pertubations = pertubations_list[best_id_current_fitness]
             best_img_files_adv = current_adv_files[best_id_current_fitness]
-            output = current_output[best_id_current_fitness]
+            output = current_outputs[best_id_current_fitness]
             best_adv_img_tensors = current_adv_img_tensors[best_id_current_fitness]
             sigma *= c_increase
         else:
