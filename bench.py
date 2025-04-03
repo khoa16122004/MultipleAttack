@@ -56,8 +56,7 @@ def FreeText_all_benchmark(args, image_tensors, input_ids, image_sizes,
     adv_img_tensors = image_tensors.detach().clone().cuda()
     adv_img_tensors = image_tensors + pertubation_list
     pil_adv_imgs = [topil(adv_img_tensor) for adv_img_tensor in adv_img_tensors]
-    print(pil_adv_imgs)
-    _, adv_img_tensors, _ = model.repair_input(None, adv_img_tensors)
+    _, adv_img_tensors, _ = model.repair_input(None, pil_adv_imgs)
         
     output = model.inference(input_ids, adv_img_tensors, image_sizes)[0]    
     
