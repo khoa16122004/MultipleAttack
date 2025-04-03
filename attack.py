@@ -4,7 +4,7 @@ from tqdm import tqdm
 def ES_1_lambda(args, benchmark, index_attack, model, lambda_,
                 image_tensors, image_sizes, input_ids, gt_answer, 
                 epsilon=0.05, sigma=1.5, c_increase=1.1, c_decrease=0.9,
-                verbose=False):
+                verbose=True):
     
     # image_tensors: batch_size x 3 x 224 x 224
     best_pertubations = torch.randn_like(image_tensors[index_attack]).cuda()
