@@ -72,5 +72,5 @@ def FreeText_all_benchmark(args, image_tensors, input_ids, image_sizes,
     # weighted sum
     # final_score = s1 + s2 + s3 + s4 + s5
     # final_score = (similarity + bleu + num_words) / 3
-    final_score = (similarity + num_words) / 2
+    final_score = (similarity - num_words) / 2
     return final_score, adv_pil_images, output, adv_img_tensors
