@@ -4,7 +4,10 @@ from rouge_score import rouge_scorer
 import torch
 import torch.nn.functional as F
 import warnings
+import torchvision.transforms as transforms
+
 warnings.filterwarnings("ignore", category=UserWarning)
+topil = transforms.ToPILImage()
 
 sim_model = SentenceTransformer('all-MiniLM-L6-v2')
 @torch.no_grad()
@@ -52,7 +55,9 @@ def FreeText_all_benchmark(args, image_tensors, input_ids, image_sizes,
     
     adv_img_tensors = image_tensors.detach().clone().cuda()
     adv_img_tensors = image_tensors + pertubation_list
-    adv_pil_images = model.decode_image_tensors(adv_img_tensors) # torch ten
+    pil_adv_imgs = [topil(adv_img_tensor) for adv_img_tensor in adv_img_tensors]
+    adv_img_tensors = model.repair_input(None, adv_img_tensors)
+        
     output = model.inference(input_ids, adv_img_tensors, image_sizes)[0]    
     
     # cosine similarity
@@ -77,4 +82,4 @@ def FreeText_all_benchmark(args, image_tensors, input_ids, image_sizes,
     # final_score = s1 + s2 + s3 + s4 + s5
     # final_score = (similarity + bleu + num_words) / 3
     final_score = (similarity_2 - similarity_1 - num_words) / 2
-    return final_score, adv_pil_images, output, adv_img_tensors
+    return final_score, pil_adv_imgs, output, adv_img_tensors

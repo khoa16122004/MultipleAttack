@@ -5,6 +5,8 @@ from bench import FreeText_benchmark, FreeText_all_benchmark
 import argparse
 import os
 import torch
+import torchvision.transforms as transforms
+
 
 def main(args):
     seed_everything(22520691)
@@ -32,10 +34,13 @@ def main(args):
         
         # take information
         qs, img_files, gt_answer, num_image = item['question'], item['image_files'], item['answer'], item['num_image'] 
-        
-        # 
+                
+        # inference
         input_ids, image_tensors, image_sizes = model.repair_input(qs, img_files)
         img_files_decoded = model.decode_image_tensors(image_tensors)
+        
+        
+        
         
         # repair dir
         clean_dir = os.path.join(sample_dir, "clean_img")
@@ -80,6 +85,7 @@ def main(args):
                     f.write(f"Fitness:  {history[-1]}",)
                     f.write(f"Num evaluation: {num_evaluation}\n\n")
         if args.multiple == True:
+            image_tensors = [transforms.ToTensor()(img_file) for img_file in img_files] # [0, 1]
             num_evaluation, history, best_img_files_adv, success, output, best_adv_img_tensors =ES_1_all_lambda(args, FreeText_all_benchmark, model, args.lambda_,
                                                                                                                 image_tensors, image_sizes, input_ids, original_output, 
                                                                                                                 epsilon=args.epsilon)

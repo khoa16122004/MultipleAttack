@@ -31,7 +31,7 @@ class LLava:
         self.tokenizer, self.model, self.image_processor, _ = load_pretrained_model(self.pretrained, None, model_name, 
                                                                           device_map=self.device_map, **self.llava_model_args)
         self.model.eval()
-        print("Proccess: ", self.image_processor)
+        # print("Proccess: ", self.image_processor)
     
     def decode_image_tensors(self, image_tensors, image_mean=(0.5, 0.5, 0.5), image_std=(0.5, 0.5, 0.5)):
         unnormalize = transforms.Normalize(
@@ -58,8 +58,6 @@ class LLava:
         image_sizes = None
         if img_files:
             image_tensors = process_images(img_files, self.image_processor, self.model.config)
-            print(image_tensors.shape)
-            input()
             image_tensors = torch.stack([_image.to(dtype=torch.float16, device=self.device) for _image in image_tensors])
             image_sizes = [image.size for image in img_files]
         return input_ids, image_tensors, image_sizes
