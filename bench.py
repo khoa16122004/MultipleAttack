@@ -59,8 +59,8 @@ def FreeText_all_benchmark(args, image_tensors, input_ids, image_sizes,
     emb1 = sim_model.encode(output, convert_to_tensor=True)
     emb2 = sim_model.encode(gt_answer, convert_to_tensor=True)
     emb3 = sim_model.encode(target_answer, convert_to_tensor=True)
-    similarity_1 = F.cosine_similarity(emb1.unsqueeze(0), emb2.unsqueeze(0)).item()
-    similarity_2 = F.cosine_similarity(emb1.unsqueeze(0), emb3.unsqueeze(0)).item()
+    similarity_1 = F.cosine_similarity(emb1.unsqueeze(0), emb2.unsqueeze(0)).item() # sim with gt answer
+    similarity_2 = F.cosine_similarity(emb1.unsqueeze(0), emb3.unsqueeze(0)).item() # sim with target
     
     # print("Embedding similarity: ", similarity)
     
