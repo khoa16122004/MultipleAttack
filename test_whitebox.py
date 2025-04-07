@@ -12,16 +12,33 @@ def main(args):
     seed_everything(22520691)
     model, image_token, special_token = init_model(args)
     
-    
     for i, item in enumerate(mantis_QA_loader(image_placeholder=image_token)):
         
         # take information
         qs, img_files, gt_answer, num_image = item['question'], item['image_files'], item['answer'], item['num_image'] 
-                
+        
         # inference
         input_ids, image_tensors, image_sizes = model.repair_input(qs, img_files)
-        output = model.model(input_ids=input_ids, images=image_tensors, image_sizes=image_sizes, dpo_forward=True)
-        print(output)
+        
+        # Bật requires_grad cho image_tensors
+        image_tensors.requires_grad_(True)
+        
+        # forward pass (chạy mô hình để lấy logits)
+        logits = model.model(input_ids=input_ids, images=image_tensors, image_sizes=image_sizes, dpo_forward=True)
+        
+        # Giả sử bạn có loss function (ví dụ cross entropy loss)
+        # Giả sử bạn có ground truth (gt_answer) đã chuyển thành tensor phù hợp
+        target = torch.tensor(gt_answer).to(logits.device)  # Chuyển ground truth thành tensor
+        loss = torch.nn.functional.cross_entropy(logits.view(-1, logits.size(-1)), target.view(-1))
+        
+        # Tính gradient
+        loss.backward()
+        
+        # Lấy gradient của image_tensors
+        image_grads = image_tensors.grad
+        
+        # Dùng gradient của image_tensors cho mục đích tiếp theo (VD: adversarial attack)
+        print(image_grads)  # Hoặc xử lý ảnh theo gradient nếu cần
         break
     
      
