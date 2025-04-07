@@ -19,14 +19,15 @@ def pgd_attack(model, input_ids, image_tensors, image_sizes, target_answer, epsi
     for _ in range(num_steps):
         # Chạy mô hình để lấy logits
         logits = model.model(input_ids=input_ids, images=attacked_image, image_sizes=image_sizes, dpo_forward=True)
-        
+
+        # Lấy logits (phần tử đầu tiên trong tuple)
+        logits = logits[0]
+
         # Tính toán loss giữa logits và target_answer
-        # Chuyển target_answer thành tensor (mã hóa thành token ids)
         target_ids = model.tokenizer.encode(target_answer, return_tensors="pt").cuda()
 
         # Tính toán cross-entropy loss
         loss = F.cross_entropy(logits.view(-1, logits.size(-1)), target_ids.view(-1))
-
         # Tính gradient của loss đối với ảnh tấn công
         model.zero_grad()
         loss.backward()
