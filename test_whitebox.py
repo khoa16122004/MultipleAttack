@@ -20,7 +20,7 @@ def main(args):
                 
         # inference
         input_ids, image_tensors, image_sizes = model.repair_input(qs, img_files)
-        output = model.model(input_ids=input_ids, images=image_tensors, image_sizes=image_sizes)
+        output = model.model(input_ids=input_ids, images=image_tensors, image_sizes=image_sizes, dpo_forward=True)
         print(output)
         break
     
