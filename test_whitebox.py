@@ -12,10 +12,6 @@ def main(args):
     seed_everything(22520691)
     model, image_token, special_token = init_model(args)
     
-    # repair dir
-    experiment_dir = f"multiple={args.multiple}{args.prefix_path}_ES_lambda={args.lambda_}_epsilon={args.epsilon}_maxiter={args.max_query}_pretrained={args.pretrained}"
-    os.makedirs(experiment_dir, exist_ok=True)
-    
     
     for i, item in enumerate(mantis_QA_loader(image_placeholder=image_token)):
         
