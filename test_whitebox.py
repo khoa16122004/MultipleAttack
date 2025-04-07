@@ -6,6 +6,7 @@ import argparse
 import os
 import torch
 import torchvision.transforms as transforms
+import torch.nn.functional as F
 
 
 def pgd_attack(model, input_ids, image_tensors, image_sizes, target_answer, epsilon=0.01, alpha=0.005, num_steps=20):
