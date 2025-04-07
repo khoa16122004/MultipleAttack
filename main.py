@@ -90,7 +90,9 @@ def main(args):
                 num_evaluation, history, best_img_files_adv, success, output, best_adv_img_tensors =ES_1_all_lambda(args, FreeText_all_benchmark, model, args.lambda_,
                                                                                                                     image_tensors, image_sizes, input_ids, original_output, 
                                                                                                                     epsilon=args.epsilon)
-                # log
+            else:
+                num_evaluation, history, best_img_files_adv, success, output, best_adv_img_tensors = PGD()
+            # log
             # attacked_img_files = best_img_files_adv[index_attack]
             for j, img_adv_files in enumerate(best_img_files_adv):
                 img_adv_files.save(os.path.join(sample_dir, f"{j}.png"))
@@ -123,6 +125,7 @@ if __name__ == "__main__":
     parser.add_argument("--prefix_path", type=str, default="")
     parser.add_argument("--dataset", type=str, default="mantis_qa")
     parser.add_argument("--multiple", type=bool, default=False)
+    parser.add_argument("--whitebox", type=bool, default=True)
     args = parser.parse_args()
 
     main(args)
